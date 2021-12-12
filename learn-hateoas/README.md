@@ -1,0 +1,1 @@
+HATEOAS - Hypermedia as the engine of applicaton state
