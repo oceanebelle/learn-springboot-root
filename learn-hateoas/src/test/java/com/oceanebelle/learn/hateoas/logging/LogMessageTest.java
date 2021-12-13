@@ -2,6 +2,7 @@ package com.oceanebelle.learn.hateoas.logging;
 
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @Log4j2
@@ -11,12 +12,25 @@ public class LogMessageTest {
         Assertions.assertThatThrownBy(() -> new LogMessage().kv("action", "")).isInstanceOf(IllegalArgumentException.class);
     }
 
+    @BeforeEach
+    public void setup() {
+        LogHelper.resetLogCaptor();
+    }
+
+    @Test
+    public void testElapsed2() {
+        LogCaptorAppender logCaptor = LogHelper.getLogCaptor();
+        Assertions.assertThat(logCaptor.getLogCount()).isEqualTo(0);
+    }
+
     @Test
     public void testElapsed() {
+
         // starts testSTARTmethod
         LogMessage start = new LogMessage();
         start.action("TEST").state("START").kv("aValue","test").method("method");
         log.info(start);
+
 
         // starts testSTART
         LogMessage mid = new LogMessage();
@@ -31,6 +45,9 @@ public class LogMessageTest {
         LogMessage dup = new LogMessage();
         dup.action("TEST").state("X").method("method").kv("message","the end").kv("duplicated", "true");
         log.info(dup); // without took
+
+        LogCaptorAppender logCaptor = LogHelper.getLogCaptor();
+        Assertions.assertThat(logCaptor.getLogCount()).isEqualTo(4);
 
     }
 }

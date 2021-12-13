@@ -58,6 +58,8 @@ public class LogMessage {
     private Optional<String> method = Optional.empty();
     private Optional<String> state = Optional.empty();
 
+    private String cachedLogMessage;
+
     private Map<String, String> contextMap = new HashMap<>();
 
     public LogMessage action(String action) {
@@ -156,19 +158,25 @@ public class LogMessage {
 
     @Override
     public String toString() {
-        initClock();
-        var duration = updateElapsed();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(contextMap.entrySet().stream()
-                .filter(e -> !Strings.isBlank(e.getValue())) // skip empty pairs
-                .sorted(Comparator.comparing(Map.Entry::getKey, ACTION_COMPARATOR))
-                .map(e -> String.join("=", e.getKey(),escape(e.getValue())))
-                .collect(Collectors.joining(" ")));
+        if (cachedLogMessage == null) {
 
-        duration.ifPresent(value -> sb.append(" tookMs=").append(value.toMillis()));
+            initClock();
+            var duration = updateElapsed();
 
-        return sb.toString();
+            StringBuilder sb = new StringBuilder();
+            sb.append(contextMap.entrySet().stream()
+                    .filter(e -> !Strings.isBlank(e.getValue())) // skip empty pairs
+                    .sorted(Comparator.comparing(Map.Entry::getKey, ACTION_COMPARATOR))
+                    .map(e -> String.join("=", e.getKey(), escape(e.getValue())))
+                    .collect(Collectors.joining(" ")));
+
+            duration.ifPresent(value -> sb.append(" tookMs=").append(value.toMillis()));
+
+            cachedLogMessage = sb.toString();
+        }
+
+        return cachedLogMessage;
 
     }
 
