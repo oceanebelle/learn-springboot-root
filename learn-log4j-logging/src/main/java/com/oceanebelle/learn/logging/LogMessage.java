@@ -19,7 +19,9 @@ public class LogMessage {
 
     enum State {
         START,
-        OK,
+        STOP,
+        COMPLETE,
+        SUCCESS,
         FAIL,
         NOOP
     }
@@ -61,6 +63,19 @@ public class LogMessage {
     private String cachedLogMessage;
 
     private Map<String, String> contextMap = new HashMap<>();
+
+    public static LogMessage startAction(String action) {
+        return new LogMessage().action(action).state(State.START.name());
+    }
+
+    public static LogMessage endAction(String action) {
+        return new LogMessage().action(action).state(State.COMPLETE.name());
+    }
+
+    public static LogMessage failAction(String action) {
+        return new LogMessage().action(action).state(State.FAIL.name());
+    }
+
 
     public LogMessage action(String action) {
         this.action = Optional.ofNullable(action);
