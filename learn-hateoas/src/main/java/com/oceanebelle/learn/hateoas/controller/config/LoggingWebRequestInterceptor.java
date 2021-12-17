@@ -9,6 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.WebRequestInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Logs all web requests
@@ -17,12 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 public class LoggingWebRequestInterceptor implements WebRequestInterceptor {
 
     public static final String WEB = "web";
+    public static final String PATH = "path";
+    public static final String HTTP_METHOD = "httpMethod";
+    public static final String SC = "sc";
 
     @Override
     public void preHandle(WebRequest request) throws Exception {
         log.info(LogMessageFactory.startAccess(WEB)
-                .kv("httpMethod", getHttpRequest(request).getMethod())
-                .kv("uri", getHttpRequest(request).getRequestURI()));
+                .kv(HTTP_METHOD, getHttpRequest(request).getMethod())
+                .kv(PATH, getHttpRequest(request).getRequestURI()));
     }
 
     @Override
@@ -35,16 +39,23 @@ public class LoggingWebRequestInterceptor implements WebRequestInterceptor {
         var httpRequest = getHttpRequest(request);
         if (ex == null) {
             log.info(LogMessageFactory.endAccess(WEB)
-                    .kv("httpMethod", httpRequest.getMethod())
-                    .kv("uri", httpRequest.getRequestURI()));
+                    .kv(SC, getHttpResponse(request).getStatus())
+                    .kv(HTTP_METHOD, httpRequest.getMethod())
+                    .kv(PATH, httpRequest.getRequestURI()));
         } else {
             log.error(LogMessageFactory.failAccess(WEB)
-                    .kv("httpMethod", httpRequest.getMethod())
-                    .kv("uri", httpRequest.getRequestURI()), ex);
+                    .kv(SC, getHttpResponse(request).getStatus())
+                    .kv(HTTP_METHOD, httpRequest.getMethod())
+                    .kv(PATH, httpRequest.getRequestURI())
+                    .message(ex.getMessage()), ex);
         }
     }
 
-    public HttpServletRequest getHttpRequest(WebRequest request) {
+    private HttpServletRequest getHttpRequest(WebRequest request) {
         return ((ServletWebRequest) request).getRequest();
+    }
+
+    private HttpServletResponse getHttpResponse(WebRequest request) {
+        return ((ServletWebRequest) request).getResponse();
     }
 }

@@ -7,6 +7,7 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,34 +65,30 @@ public class LogMessage {
 
     private Map<String, String> contextMap = new HashMap<>();
 
-    public static LogMessage startAction(String action) {
-        return new LogMessage().action(action).state(State.START.name());
-    }
-
-    public static LogMessage endAction(String action) {
-        return new LogMessage().action(action).state(State.COMPLETE.name());
-    }
-
-    public static LogMessage failAction(String action) {
-        return new LogMessage().action(action).state(State.FAIL.name());
-    }
-
 
     public LogMessage action(String action) {
+        Objects.requireNonNull(action);
         this.action = Optional.ofNullable(action);
         contextMap.put("action", action);
         return this;
     }
 
     public LogMessage state(String state) {
+        Objects.requireNonNull(state);
         this.state = Optional.ofNullable(state);
         contextMap.put("state", state);
         return this;
     }
 
     public LogMessage method(String method) {
+        Objects.requireNonNull(method);
         this.method = Optional.ofNullable(method);
         contextMap.put("method", method);
+        return this;
+    }
+
+    public LogMessage message(String msg) {
+        kv("message", msg);
         return this;
     }
 
@@ -101,12 +98,54 @@ public class LogMessage {
         }
     }
 
+    public LogMessage with(LogMessageVisitor visitor) {
+        visitor.visit(this);
+        return this;
+    }
+
+    public LogMessage with(Map<?, ?> map) {
+        for(var pair : map.entrySet()) {
+            var value = pair.getValue();
+            if (value != null && Strings.isNotBlank(value.toString())) {
+                this.kv(pair.getKey().toString(), value.toString());
+            }
+        }
+        return this;
+    }
+
+    public LogMessage kv(String key, Collection<?> collection) {
+        kv(key, collection.stream().map(Object::toString).collect(Collectors.joining(",", "(", ")")));
+        return this;
+    }
+
     public LogMessage kv(String key, String value) {
         Objects.requireNonNull(key);
         ensureCustomKey(key);
-        contextMap.put(key, value);
+        if (Strings.isNotBlank(value)) {
+            contextMap.put(key, value);
+        }
         return this;
     }
+
+    public LogMessage kv(String key, Boolean value) {
+        Objects.requireNonNull(key);
+        ensureCustomKey(key);
+        if (value != null) {
+            contextMap.put(key, value.toString());
+        }
+        return this;
+    }
+
+    public LogMessage kv(String key, Number value) {
+        Objects.requireNonNull(key);
+        ensureCustomKey(key);
+        if (value != null) {
+            contextMap.put(key, value.toString());
+        }
+        return this;
+    }
+
+
 
     private Instant getNow() {
         return Instant.now(Clock.systemUTC());
@@ -133,13 +172,13 @@ public class LogMessage {
 
     private Optional<Duration> updateElapsed() {
         var now = getNow();
-        var key = startLogKey();
+        var startKey = startLogKey();
 
-        if (!isStartLogging() && startTimeMap.get().containsKey(key)) {
-            var start = startTimeMap.get().get(key);
+        if (!isStartLogging() && startTimeMap.get().containsKey(startKey)) {
+            var start = startTimeMap.get().get(startKey);
             var duration = Optional.of(Duration.between(start, now));
             // the elapsed calculation will only be fetched one time and cleared
-            startTimeMap.get().remove(key);
+            startTimeMap.get().remove(startKey);
             return duration;
         }
 
@@ -182,7 +221,7 @@ public class LogMessage {
             StringBuilder sb = new StringBuilder();
             sb.append(contextMap.entrySet().stream()
                     .filter(e -> !Strings.isBlank(e.getValue())) // skip empty pairs
-                    .sorted(Comparator.comparing(Map.Entry::getKey, ACTION_COMPARATOR))
+                    .sorted(Map.Entry.comparingByKey(ACTION_COMPARATOR))
                     .map(e -> String.join("=", e.getKey(), escape(e.getValue())))
                     .collect(Collectors.joining(" ")));
 

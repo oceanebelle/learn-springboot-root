@@ -16,9 +16,16 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.oceanebelle.learn</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>learn-log4j-logging</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>learn-log4j-logging-test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

@@ -29,8 +29,8 @@
     <modules>
 
         <module>learn-hateoas</module>
-
         <module>learn-log4j-logging</module>
+        <module>learn-log4j-logging-test</module>
 
     </modules>
 

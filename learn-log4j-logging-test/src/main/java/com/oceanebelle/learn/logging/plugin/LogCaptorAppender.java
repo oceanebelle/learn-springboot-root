@@ -43,7 +43,7 @@ public class LogCaptorAppender extends AbstractAppender {
 
     @Override
     public void append(LogEvent event) {
-        formattedEvent.add(new String(getLayout().toByteArray(event), StandardCharsets.UTF_8));
+        formattedEvent.add(new String(getLayout().toByteArray(event), StandardCharsets.UTF_8).replaceAll("[\\n\\r]", ""));
         events.add(event);
     }
 
@@ -51,8 +51,13 @@ public class LogCaptorAppender extends AbstractAppender {
         return events.size();
     }
 
+    public String getLog(int index) {
+        return formattedEvent.get(index);
+    }
+
     public void clear() {
         events.clear();
+        formattedEvent.clear();
     }
 
     // Your custom appender needs to declare a factory method
@@ -72,6 +77,6 @@ public class LogCaptorAppender extends AbstractAppender {
             layout = PatternLayout.createDefaultLayout();
         }
         System.out.println("Initializing Log Captor appender for unit test");
-        return new LogCaptorAppender(name, filter, layout, false, null);
+        return new LogCaptorAppender(name, filter, layout, true, null);
     }
 }

@@ -8,9 +8,9 @@
   </parent>
 
 
-  <artifactId>learn-log4j-logging</artifactId>
+  <artifactId>learn-log4j-logging-test</artifactId>
   <packaging>jar</packaging>
-  <name>learn-log4j-logging</name>
+  <name>learn-log4j-logging-test</name>
 
   <dependencies>
     <dependency>
@@ -28,13 +28,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>learn-log4j-logging-test</artifactId>
-      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
