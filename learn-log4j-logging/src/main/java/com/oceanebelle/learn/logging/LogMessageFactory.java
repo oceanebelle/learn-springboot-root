@@ -1,4 +1,4 @@
-package com.oceanebelle.learn.hateoas.logging;
+package com.oceanebelle.learn.logging;
 
 public class LogMessageFactory {
     public static LogMessage startAccess(String method) {

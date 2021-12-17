@@ -1,4 +1,4 @@
-package com.oceanebelle.learn.hateoas.logging;
+package com.oceanebelle.learn.logging.plugin;
 
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Core;
@@ -18,6 +18,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class can be used in log configuration files e.g. properties file
+ * <pre>
+ * appender.test.type = LogCaptorAppender
+ * appender.test.name = test
+ * appender.test.layout.type = PatternLayout
+ * appender.test.layout.pattern = %d{HH:mm:ss.SSS} %-5level %m%n
+ * appender.test.filter.threshold.type = ThresholdFilter
+ * appender.test.filter.threshold.level = debug
+ * </pre>
+ */
 @Plugin(
         name = "LogCaptorAppender",
         category = Core.CATEGORY_NAME,
@@ -60,7 +71,7 @@ public class LogCaptorAppender extends AbstractAppender {
         if (layout == null) {
             layout = PatternLayout.createDefaultLayout();
         }
-        System.out.println("Initializing appender");
+        System.out.println("Initializing Log Captor appender for unit test");
         return new LogCaptorAppender(name, filter, layout, false, null);
     }
 }

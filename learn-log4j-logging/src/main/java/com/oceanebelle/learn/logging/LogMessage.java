@@ -1,4 +1,4 @@
-package com.oceanebelle.learn.hateoas.logging;
+package com.oceanebelle.learn.logging;
 
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
@@ -52,7 +52,7 @@ public class LogMessage {
         }
     }
 
-    private static ThreadLocal<Map<String, Instant>> startTimeMap = ThreadLocal.withInitial(HashMap::new);
+    private static final ThreadLocal<Map<String, Instant>> startTimeMap = ThreadLocal.withInitial(HashMap::new);
 
     private Optional<String> action = Optional.empty();
     private Optional<String> method = Optional.empty();

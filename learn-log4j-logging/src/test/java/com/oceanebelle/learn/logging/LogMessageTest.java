@@ -1,5 +1,7 @@
-package com.oceanebelle.learn.hateoas.logging;
+package com.oceanebelle.learn.logging;
 
+import com.oceanebelle.learn.logging.plugin.LogCaptorAppender;
+import com.oceanebelle.learn.logging.test.LogHelper;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +16,7 @@ public class LogMessageTest {
 
     @BeforeEach
     public void setup() {
-        LogHelper.resetLogCaptor();
+        LogHelper.captureLogFor(LogMessageTest.class);
     }
 
     @Test
@@ -30,7 +32,6 @@ public class LogMessageTest {
         LogMessage start = new LogMessage();
         start.action("TEST").state("START").kv("aValue","test").method("method");
         log.info(start);
-
 
         // starts testSTART
         LogMessage mid = new LogMessage();
