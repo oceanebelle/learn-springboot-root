@@ -41,10 +41,10 @@ public class LogMessageTest {
         // starts testSTART
         log.info(LogMessageFactory.startAction("TEST").message("test"));
 
-        // computes testSTARTmethod
+        // computes testSTARTmethod, end state calculates tookMs
         log.info(LogMessageFactory.endAction("TEST", "method").message("original")); // with took
 
-        LogMessage dup = new LogMessage();
+        // duplicate log will not calculate tookMs
         log.info(LogMessageFactory.endAction("TEST", "method").message("duplicate")); // without took
 
         // log message using visitor
