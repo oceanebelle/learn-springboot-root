@@ -22,6 +22,7 @@ public class LoggingWebRequestInterceptor implements WebRequestInterceptor {
     public static final String HTTP_METHOD = "httpMethod";
     public static final String SC = "sc";
 
+
     @Override
     public void preHandle(WebRequest request) throws Exception {
         log.info(LogMessageFactory.startAccess(WEB)

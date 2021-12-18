@@ -17,12 +17,12 @@
     <url>http://www.example.com</url>
 
     <properties>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <maven.compiler.source>11</maven.compiler.source>
-
         <maven.compiler.target>11</maven.compiler.target>
+
+        <log4j2.version>2.17.0</log4j2.version>
+        <spring.boot.version>2.4.0</spring.boot.version>
 
     </properties>
 
@@ -32,6 +32,7 @@
         <module>learn-log4j-logging</module>
         <module>learn-log4j-logging-test</module>
 
+
     </modules>
 
     <dependencyManagement>
@@ -39,18 +40,64 @@
         <dependencies>
 
             <dependency>
-
                 <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-
-                <version>2.4.0</version>
-
+                <version>${spring.boot.version}</version>
                 <type>pom</type>
-
                 <scope>import</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2020.0.5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${log4j2.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <!-- Tracing -->
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+                <version>${spring.boot.version}</version>
 
             </dependency>
+
+            <!-- logging -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+
 
         </dependencies>
 
@@ -63,34 +110,9 @@
         <dependency>
 
             <groupId>org.projectlombok</groupId>
-
             <artifactId>lombok</artifactId>
-
             <version>1.18.22</version>
-
             <scope>provided</scope>
-
-        </dependency>
-
-        <!-- logging -->
-
-        <dependency>
-
-            <groupId>org.apache.logging.log4j</groupId>
-
-            <artifactId>log4j-api</artifactId>
-
-            <version>2.16.0</version>
-
-        </dependency>
-
-        <dependency>
-
-            <groupId>org.apache.logging.log4j</groupId>
-
-            <artifactId>log4j-core</artifactId>
-
-            <version>2.16.0</version>
 
         </dependency>
 
