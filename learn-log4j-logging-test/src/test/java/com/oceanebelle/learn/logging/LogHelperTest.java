@@ -5,6 +5,7 @@ import com.oceanebelle.learn.logging.test.LogHelper;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Log4j2

@@ -4,6 +4,7 @@ import brave.Tracer;
 import brave.propagation.CurrentTraceContext;
 import com.oceanebelle.learn.hateoas.controller.config.RequestId;
 import com.oceanebelle.learn.hateoas.controller.dto.UserDTO;
+import com.oceanebelle.learn.hateoas.controller.hateoas.model.User;
 import com.oceanebelle.learn.hateoas.service.UserService;
 import com.oceanebelle.learn.logging.LogMessageFactory;
 import lombok.extern.log4j.Log4j2;
@@ -22,6 +23,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
+
+import static com.oceanebelle.learn.logging.LogMessageFactory.failAccess;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 // TODO: Add validation to the dto
 @Log4j2
@@ -40,27 +46,45 @@ public class UserAccountApi {
 
 
     @GetMapping("/users")
-    ResponseEntity<List<UserDTO>> getAllUsers(RequestId requestId) throws ExecutionException, InterruptedException, TimeoutException {
-        log.info(LogMessageFactory.startAccess("userApi").with(requestId));
+    List<User> getAllUsers(RequestId requestId) {
+        log.info(LogMessageFactory.startAccess("userApi").method().with(requestId));
 
-        // Test if the trace is propagated
-        var future = CompletableFuture.runAsync(currentTraceContext.wrap(() -> log.info("Task ran in separate thread")));
-        future.get(1000, TimeUnit.MICROSECONDS);
+        try {
+            // Test if the trace is propagated
+            var future = CompletableFuture.runAsync(currentTraceContext.wrap(() -> log.info("Task ran in separate thread")));
+            future.get(1000, TimeUnit.MICROSECONDS);
+        } catch (Exception ex) {
+            log.error(failAccess("userApi").method(), ex);
+        }
 
-        return ResponseEntity.ok(userService.getUsers());
+        return userService.getUsers().stream()
+                .map(u -> new User(u.getName(), u.getId()))
+                .map(u -> u.add(linkTo(methodOn(UserAccountApi.class).getUser(u.getId())).withSelfRel()))
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/users")
     ResponseEntity<UserDTO> addUser(@RequestBody UserDTO user) {
-        // TODO: process the user
+
         return ResponseEntity.ok(UserDTO.builder().build());
     }
 
 
     @GetMapping("/users/{id}")
-    ResponseEntity<UserDTO> getUser(@PathVariable("id") String id) {
-        // TODO fetch the user
-        return ResponseEntity.ok(UserDTO.builder().build());
+    ResponseEntity<User> getUser(@PathVariable("id") String id) {
+        log.info(LogMessageFactory.startAccess("userApi").method().kv("requestId", id));
+        var result = userService.getUser(id)
+                .map(u -> new User(u.getName(), u.getId()))
+                .map(u -> u.add(linkTo(methodOn(UserAccountApi.class).getAllUsers(null)).withSelfRel()))
+                .map(u -> u.add(linkTo(methodOn(UserAccountApi.class).getUser(u.getId())).withSelfRel()));
+
+
+        log.info(LogMessageFactory.endAccess("userApi").method().kv("requestId", id).kv("found", result.isPresent()));
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PatchMapping("/users/{id}")

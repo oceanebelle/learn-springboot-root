@@ -87,6 +87,12 @@ public class LogMessage {
         return this;
     }
 
+    public LogMessage method() {
+        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+        method(methodName);
+        return this;
+    }
+
     public LogMessage message(String msg) {
         kv("message", msg);
         return this;

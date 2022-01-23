@@ -2,6 +2,7 @@ package com.oceanebelle.learn.hateoas;
 
 import com.oceanebelle.learn.logging.LogMessageFactory;
 import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.core.LoggerContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -19,6 +20,8 @@ public class LearnHateoasApplication {
 
     @PreDestroy
     public void destroy() {
+        log.info("Config Location: {}", LoggerContext.getContext(false).getConfiguration().getConfigurationSource());
+
         log.info(LogMessageFactory.endAction(APP).kv("message", "Shutting down application."));
     }
 }
