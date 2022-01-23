@@ -75,7 +75,7 @@ public class UserAccountApi {
         log.info(LogMessageFactory.startAccess("userApi").method().kv("requestId", id));
         var result = userService.getUser(id)
                 .map(u -> new User(u.getName(), u.getId()))
-                .map(u -> u.add(linkTo(methodOn(UserAccountApi.class).getAllUsers(null)).withSelfRel()))
+                .map(u -> u.add(linkTo(methodOn(UserAccountApi.class).getAllUsers(null)).withRel("all")))
                 .map(u -> u.add(linkTo(methodOn(UserAccountApi.class).getUser(u.getId())).withSelfRel()));
 
 
