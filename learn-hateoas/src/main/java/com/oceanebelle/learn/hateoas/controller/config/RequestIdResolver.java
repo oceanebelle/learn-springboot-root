@@ -26,6 +26,10 @@ public class RequestIdResolver implements HandlerMethodArgumentResolver {
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         // Injects either via header: b3 <traceId>-<spanId>
         // or headers: X-B3-TraceId and X-B3-SpanId
-        return RequestId.builder().requestId(tracer.currentSpan().context().traceIdString()).build();
+        if (tracer.currentSpan() != null) {
+            return RequestId.builder().requestId(tracer.currentSpan().context().traceIdString()).build();
+        } else {
+            return RequestId.builder().requestId(null).build();
+        }
     }
 }
