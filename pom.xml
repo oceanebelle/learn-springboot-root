@@ -24,6 +24,7 @@
         <log4j2.version>2.17.1</log4j2.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring.boot.version>2.4.0</spring.boot.version>
+        <restassured.version>3.3.0</restassured.version>
 
     </properties>
 
@@ -102,6 +103,19 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-log4j2</artifactId>
                 <version>${spring.boot.version}</version>
+            </dependency>
+
+            <!-- Testing -->
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>spring-mock-mvc</artifactId>
+                <version>${restassured.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>json-schema-validator</artifactId>
+                <version>${restassured.version}</version>
             </dependency>
 
         </dependencies>
