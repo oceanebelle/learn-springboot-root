@@ -33,7 +33,9 @@
         <module>learn-hateoas</module>
         <module>learn-log4j-logging</module>
         <module>learn-log4j-logging-test</module>
-
+        <module>learn-kafka</module>
+        <module>learn-shell</module>
+        <module>learn-shell-noninteractive</module>
 
     </modules>
 
@@ -49,6 +51,14 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.shell</groupId>
+                <artifactId>spring-shell-starter</artifactId>
+                <version>2.0.1.RELEASE</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -198,6 +208,28 @@
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
