@@ -36,6 +36,7 @@
         <module>learn-kafka</module>
         <module>learn-shell</module>
         <module>learn-shell-noninteractive</module>
+        <module>learn-rest-mongo</module>
 
     </modules>
 
@@ -147,6 +148,10 @@
     <build>
 
         <resources>
+            <resource>
+                <directory>src/docker</directory>
+                <filtering>false</filtering>
+            </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
