@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserAccountController {
 
 //    private final Tracer tracer;
-    private final UserService userService;
+ //   private final UserService userService;
 //    private final CurrentTraceContext currentTraceContext;
 
-    public UserAccountController(UserService userService) {
-        this.userService = userService;
-    }
+
 
 
 //    @GetMapping("/users")

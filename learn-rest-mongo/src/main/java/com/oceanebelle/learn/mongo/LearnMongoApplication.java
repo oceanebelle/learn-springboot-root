@@ -10,12 +10,12 @@ import javax.annotation.PreDestroy;
 
 @Log4j2
 @SpringBootApplication
-public class LearnHateoasApplication {
+public class LearnMongoApplication {
     private static final String APP = "APP";
 
     public static void main(String[] args) {
         log.info(LogMessageFactory.startAction(APP).kv("message", "Starting up application."));
-        SpringApplication.run(LearnHateoasApplication.class, args);
+        SpringApplication.run(LearnMongoApplication.class, args);
     }
 
     @PreDestroy
