@@ -10,13 +10,18 @@ import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration @ComponentScan
 @EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
+@EnableConfigurationProperties(DBProperties.class)
 public class DBConfig {
+    @Bean DBAdaptor dbAdaptor(Datastore datastore) {
+        return new DefaultDBAdaptor(datastore);
+    }
 
     @Bean
     Datastore datastore(DBProperties dbProperties) {

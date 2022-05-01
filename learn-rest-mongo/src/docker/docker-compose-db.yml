@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  mongo:
+    image: mongo:4.2.6
+    volumes:
+      - db-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: admin
+
+  toxiproxy:
+    image: "shopify/toxiproxy"
+    ports:
+      - "8474:8474"
+      - "27000:27000"
+
+  # We created proxy configuration from another ephermal container
+  toxiproxy-config:
+    image: "shopify/toxiproxy"
+    entrypoint: >
+      sh -c "/go/bin/toxiproxy-cli -h toxiproxy:8474 create mongo --listen 0.0.0.0:27000 --upstream mongo:27017;"
+
+volumes:
+  db-data:
