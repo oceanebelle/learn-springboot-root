@@ -20,7 +20,7 @@ class SimpleTestContainerTest {
 
     @Container
     private MongoDBContainer mongoDBContainer = new MongoDBContainer(
-            DockerImageName.parse("mongo:4.2.0"));
+            DockerImageName.parse("mongo:4.2.6"));
 
     @BeforeEach
     void setup() {

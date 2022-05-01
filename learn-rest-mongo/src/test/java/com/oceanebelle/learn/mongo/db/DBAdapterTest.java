@@ -12,6 +12,6 @@ public class DBAdapterTest extends DBTest {
 
     @Test
     public void shouldReturnVersions() {
-        assertThat(adaptor.getVersion()).isEqualTo("4.2.19");
+        assertThat(adaptor.getVersion()).isEqualTo("4.2.6");
     }
 }
