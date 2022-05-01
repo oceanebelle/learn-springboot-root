@@ -17,10 +17,13 @@ public class DefaultDBAdaptor implements DBAdaptor {
     public String getVersion() {
         log.info(LogMessageFactory.startAction(DB).method().kv("message", "Fetching Version"));
         try {
-            return datastore.getDatabase().runCommand(RawBsonDocument.parse("{ buildInfo: 1 }"))
+            String version = datastore.getDatabase().runCommand(RawBsonDocument.parse("{ buildInfo: 1 }"))
                     .getString("version");
-        } finally {
-            log.info(LogMessageFactory.endAction(DB).method());
+            log.info(LogMessageFactory.endAction(DB).method().kv("version", version));
+            return version;
+        } catch (RuntimeException e) {
+            log.error(LogMessageFactory.failAction(DB).method().message(e.getMessage()), e);
+            throw e;
         }
     }
 }
