@@ -1,12 +1,9 @@
 package com.oceanebelle.learn.shell;
 
-import com.oceanebelle.learn.logging.LogMessageFactory;
+import com.oceanebelle.learn.kafka.LogMessageFactory;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.core.LoggerContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import javax.annotation.PreDestroy;
 
 @Log4j2
 @SpringBootApplication

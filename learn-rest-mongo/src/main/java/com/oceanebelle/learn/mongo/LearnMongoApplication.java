@@ -1,6 +1,6 @@
 package com.oceanebelle.learn.mongo;
 
-import com.oceanebelle.learn.logging.LogMessageFactory;
+import com.oceanebelle.learn.kafka.LogMessageFactory;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.springframework.boot.SpringApplication;

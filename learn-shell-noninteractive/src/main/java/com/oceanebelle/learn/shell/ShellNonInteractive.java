@@ -1,6 +1,6 @@
 package com.oceanebelle.learn.shell;
 
-import com.oceanebelle.learn.logging.LogMessageFactory;
+import com.oceanebelle.learn.kafka.LogMessageFactory;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.ApplicationArguments;

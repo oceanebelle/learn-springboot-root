@@ -1,7 +1,7 @@
 package com.oceanebelle.learn.hateoas.controller.config;
 
-import com.oceanebelle.learn.logging.LogMessage;
-import com.oceanebelle.learn.logging.LogMessageVisitor;
+import com.oceanebelle.learn.kafka.LogMessage;
+import com.oceanebelle.learn.kafka.LogMessageVisitor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.oceanebelle.learn.hateoas.controller.config;
 
 
-import com.oceanebelle.learn.logging.LogMessageFactory;
+import com.oceanebelle.learn.kafka.LogMessageFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.ServletWebRequest;

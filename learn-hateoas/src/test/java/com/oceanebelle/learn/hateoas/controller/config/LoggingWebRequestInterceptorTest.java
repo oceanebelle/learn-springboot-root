@@ -1,7 +1,7 @@
 package com.oceanebelle.learn.hateoas.controller.config;
 
-import com.oceanebelle.learn.logging.plugin.LogCaptorAppender;
-import com.oceanebelle.learn.logging.test.LogHelper;
+import com.oceanebelle.learn.kafka.plugin.LogCaptorAppender;
+import com.oceanebelle.learn.kafka.test.LogHelper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

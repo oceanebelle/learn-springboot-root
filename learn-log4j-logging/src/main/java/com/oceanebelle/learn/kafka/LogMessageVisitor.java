@@ -1,4 +1,4 @@
-package com.oceanebelle.learn.logging;
+package com.oceanebelle.learn.kafka;
 
 /**
  * Hook to objects to collect logging context

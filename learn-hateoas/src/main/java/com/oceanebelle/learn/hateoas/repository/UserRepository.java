@@ -1,8 +1,8 @@
 package com.oceanebelle.learn.hateoas.repository;
 
 import com.oceanebelle.learn.hateoas.repository.entity.UserEntity;
-import com.oceanebelle.learn.logging.LogMessage;
-import com.oceanebelle.learn.logging.LogMessageVisitor;
+import com.oceanebelle.learn.kafka.LogMessage;
+import com.oceanebelle.learn.kafka.LogMessageVisitor;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<UserEntity, Long>, LogMessageVisitor {

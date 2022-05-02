@@ -1,8 +1,8 @@
 package com.oceanebelle.learn.mongo.repository;
 
 
-import com.oceanebelle.learn.logging.LogMessage;
-import com.oceanebelle.learn.logging.LogMessageVisitor;
+import com.oceanebelle.learn.kafka.LogMessage;
+import com.oceanebelle.learn.kafka.LogMessageVisitor;
 
 
 public interface UserRepository extends LogMessageVisitor {

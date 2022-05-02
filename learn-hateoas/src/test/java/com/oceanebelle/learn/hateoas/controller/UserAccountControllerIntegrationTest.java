@@ -4,8 +4,8 @@ import brave.Tracer;
 import com.oceanebelle.learn.hateoas.controller.config.LoggingWebRequestInterceptor;
 import com.oceanebelle.learn.hateoas.controller.dto.UserDTO;
 import com.oceanebelle.learn.hateoas.service.UserService;
-import com.oceanebelle.learn.logging.plugin.LogCaptorAppender;
-import com.oceanebelle.learn.logging.test.LogHelper;
+import com.oceanebelle.learn.kafka.plugin.LogCaptorAppender;
+import com.oceanebelle.learn.kafka.test.LogHelper;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,8 +19,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.TestPropertySources;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.context.WebApplicationContext;
 

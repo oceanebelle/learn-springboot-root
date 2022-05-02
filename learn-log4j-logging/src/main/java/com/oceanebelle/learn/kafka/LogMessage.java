@@ -1,4 +1,4 @@
-package com.oceanebelle.learn.logging;
+package com.oceanebelle.learn.kafka;
 
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;

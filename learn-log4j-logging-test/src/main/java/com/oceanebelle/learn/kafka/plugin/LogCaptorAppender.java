@@ -1,4 +1,4 @@
-package com.oceanebelle.learn.logging.plugin;
+package com.oceanebelle.learn.kafka.plugin;
 
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Core;

@@ -1,6 +1,6 @@
-package com.oceanebelle.learn.logging.test;
+package com.oceanebelle.learn.kafka.test;
 
-import com.oceanebelle.learn.logging.plugin.LogCaptorAppender;
+import com.oceanebelle.learn.kafka.plugin.LogCaptorAppender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.LoggerContext;

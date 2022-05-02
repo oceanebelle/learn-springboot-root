@@ -2,11 +2,10 @@ package com.oceanebelle.learn.hateoas.controller;
 
 import com.oceanebelle.learn.hateoas.controller.dto.UserDTO;
 import com.oceanebelle.learn.hateoas.service.UserService;
-import com.oceanebelle.learn.logging.plugin.LogCaptorAppender;
-import com.oceanebelle.learn.logging.test.LogHelper;
+import com.oceanebelle.learn.kafka.plugin.LogCaptorAppender;
+import com.oceanebelle.learn.kafka.test.LogHelper;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

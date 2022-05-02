@@ -1,7 +1,7 @@
-package com.oceanebelle.learn.logging;
+package com.oceanebelle.learn.kafka;
 
-import com.oceanebelle.learn.logging.plugin.LogCaptorAppender;
-import com.oceanebelle.learn.logging.test.LogHelper;
+import com.oceanebelle.learn.kafka.plugin.LogCaptorAppender;
+import com.oceanebelle.learn.kafka.test.LogHelper;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;

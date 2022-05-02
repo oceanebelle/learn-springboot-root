@@ -1,6 +1,6 @@
 package com.oceanebelle.learn.shell;
 
-import com.oceanebelle.learn.logging.LogMessageFactory;
+import com.oceanebelle.learn.kafka.LogMessageFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.shell.standard.ShellComponent;

@@ -3,7 +3,7 @@ package com.oceanebelle.learn.hateoas.service;
 import com.oceanebelle.learn.hateoas.controller.dto.UserDTO;
 import com.oceanebelle.learn.hateoas.mapper.UserMapper;
 import com.oceanebelle.learn.hateoas.repository.UserRepository;
-import com.oceanebelle.learn.logging.LogMessageFactory;
+import com.oceanebelle.learn.kafka.LogMessageFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
