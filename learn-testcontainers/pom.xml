@@ -9,9 +9,9 @@
     </parent>
 
 
-    <artifactId>learn-kafka</artifactId>
+    <artifactId>learn-testcontainers</artifactId>
     <packaging>jar</packaging>
-    <name>learn-kafka</name>
+    <name>learn-testcontainers</name>
 
     <dependencies>
         <!-- logging -->

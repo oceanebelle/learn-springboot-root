@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.oceanebelle.learn.kafka.LogMessageFactory.endAccess;
+import static com.oceanebelle.learn.kafka.LogMessageFactory.completeAccess;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -53,7 +53,7 @@ public class UserAccountController {
                 .map(u -> u.add(linkTo(methodOn(UserAccountController.class).getUser(u.getId())).withSelfRel()))
                 .collect(Collectors.toList());
 
-        log.info(endAccess("userApi").method().kv("size", result.size()));
+        log.info(completeAccess("userApi").method().kv("size", result.size()));
 
         return result;
     }
@@ -74,7 +74,7 @@ public class UserAccountController {
                 .map(u -> u.add(linkTo(methodOn(UserAccountController.class).getUser(u.getId())).withSelfRel()));
 
 
-        log.info(LogMessageFactory.endAccess("userApi").method().kv("id", id).kv("found", result.isPresent()));
+        log.info(LogMessageFactory.completeAccess("userApi").method().kv("id", id).kv("found", result.isPresent()));
         if (result.isPresent()) {
             return ResponseEntity.ok(result.get());
         } else {

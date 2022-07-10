@@ -39,7 +39,7 @@ public class LoggingWebRequestInterceptor implements WebRequestInterceptor {
     public void afterCompletion(WebRequest request, Exception ex) throws Exception {
         var httpRequest = getHttpRequest(request);
         if (ex == null) {
-            log.info(LogMessageFactory.endAccess(WEB)
+            log.info(LogMessageFactory.completeAccess(WEB)
                     .kv(SC, getHttpResponse(request).getStatus())
                     .kv(HTTP_METHOD, httpRequest.getMethod())
                     .kv(PATH, httpRequest.getRequestURI()));

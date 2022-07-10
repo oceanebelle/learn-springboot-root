@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
                 .spliterator(), false)
                 .map(UserMapper::mapToDTO)
                 .collect(Collectors.toList());
-        log.info(LogMessageFactory.endAction(READ_DB).method().kv("size", result.size()).with(userRepository));
+        log.info(LogMessageFactory.completeAction(READ_DB).method().kv("size", result.size()).with(userRepository));
         return result;
     }
 

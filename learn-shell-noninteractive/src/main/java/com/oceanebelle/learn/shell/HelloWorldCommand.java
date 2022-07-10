@@ -17,7 +17,7 @@ public class HelloWorldCommand {
         try {
             return "Hello World";
         } finally {
-            log.info(LogMessageFactory.endAction("RUN_COMMAND").method());
+            log.info(LogMessageFactory.completeAction("RUN_COMMAND").method());
         }
     }
 }

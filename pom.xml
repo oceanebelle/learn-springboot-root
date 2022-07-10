@@ -33,10 +33,10 @@
         <module>learn-hateoas</module>
         <module>learn-log4j-logging</module>
         <module>learn-log4j-logging-test</module>
-        <module>learn-kafka</module>
         <module>learn-shell</module>
         <module>learn-shell-noninteractive</module>
         <module>learn-rest-mongo</module>
+        <module>learn-kafka-m2</module>
 
     </modules>
 

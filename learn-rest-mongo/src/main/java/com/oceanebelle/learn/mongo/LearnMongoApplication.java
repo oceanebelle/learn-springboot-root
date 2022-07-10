@@ -22,6 +22,6 @@ public class LearnMongoApplication {
     public void destroy() {
         log.info("Config Location: {}", LoggerContext.getContext(false).getConfiguration().getConfigurationSource());
 
-        log.info(LogMessageFactory.endAction(APP).kv("message", "Shutting down application."));
+        log.info(LogMessageFactory.completeAction(APP).kv("message", "Shutting down application."));
     }
 }

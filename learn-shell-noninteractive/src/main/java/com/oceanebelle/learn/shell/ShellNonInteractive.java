@@ -32,7 +32,7 @@ public class ShellNonInteractive implements ApplicationRunner {
             log.info(LogMessageFactory.startAction("NON_INTERACTIVE").kv("command", input));
             resultHandler.handleResult(shell.evaluate(() -> input));
             shell.evaluate(() -> "exit");
-            log.info(LogMessageFactory.endAction("NON_INTERACTIVE").kv("command", input));
+            log.info(LogMessageFactory.completeAction("NON_INTERACTIVE").kv("command", input));
         }
     }
 }

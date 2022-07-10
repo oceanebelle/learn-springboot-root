@@ -20,7 +20,7 @@ public class DefaultDBAdaptor implements DBAdaptor {
         try {
             String version = datastore.getDatabase().runCommand(RawBsonDocument.parse("{ buildInfo: 1 }"))
                     .getString("version");
-            log.info(LogMessageFactory.endAction(DB).method().kv("version", version));
+            log.info(LogMessageFactory.completeAction(DB).method().kv("version", version));
             return version;
         } catch (RuntimeException e) {
             log.error(LogMessageFactory.failAction(DB).method().message(e.getMessage()), e);
