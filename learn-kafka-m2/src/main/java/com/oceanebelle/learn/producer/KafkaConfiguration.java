@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Map;
 
 @Configuration
+@EnableScheduling
 @Log4j2
 public class KafkaConfiguration {
 

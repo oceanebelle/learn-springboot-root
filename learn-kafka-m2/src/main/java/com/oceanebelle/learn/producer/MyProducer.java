@@ -1,10 +1,8 @@
 package com.oceanebelle.learn.producer;
 
-import com.oceanebelle.learn.kafka.LogMessageFactory;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.sleuth.annotation.NewSpan;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -30,8 +28,7 @@ public class MyProducer {
     @Value("${app.topic}")
     private String topic;
 
-    @Scheduled(fixedRate = 1000)
-    @NewSpan
+    @Scheduled(fixedRate = 10)
     public void sendMessage() {
         log.info(startAction(ACTION, SEND_MESSAGE).kv("topic", topic));
         try {

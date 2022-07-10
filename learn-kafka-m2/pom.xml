@@ -12,13 +12,13 @@
     <artifactId>learn-kafka-m2</artifactId>
 
     <name>learn-kafka-m2</name>
+    <packaging>jar</packaging>
 
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <!-- FIXME change it to the project's website -->
     <dependencies>
 
         <dependency>
@@ -51,17 +51,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-        </dependency>
-
-        <!-- Tracing -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
         </dependency>
 
         <!-- N.B. brave uses slf4j for MDC. this dependency adds the log4j slf4j bridge -->
@@ -113,6 +102,17 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <mainClass>com.oceanebelle.learn.consumer.App</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -6,7 +6,7 @@ public class LogMessageFactory {
 
     public static LogMessage atomicAction(String action) {
         Objects.requireNonNull(action);
-        return new LogMessage().action(action).state(LogMessage.State.COMPLETE.name());
+        return new LogMessage().action(action).state(LogMessage.State.LOG.name());
     }
 
     public static LogMessage startAction(String action) {
@@ -27,6 +27,12 @@ public class LogMessageFactory {
     public static LogMessage failAction(String action) {
         Objects.requireNonNull(action);
         return new LogMessage().action(action).state(LogMessage.State.FAIL.name());
+    }
+
+    public static LogMessage atomicAction(String action, String method) {
+        Objects.requireNonNull(action);
+        Objects.requireNonNull(method);
+        return new LogMessage().action(action).state(LogMessage.State.LOG.name()).method(method);
     }
 
     public static LogMessage startAction(String action, String method) {

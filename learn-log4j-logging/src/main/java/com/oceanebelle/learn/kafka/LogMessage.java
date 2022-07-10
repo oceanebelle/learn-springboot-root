@@ -24,7 +24,8 @@ public class LogMessage {
         COMPLETE,
         SUCCESS,
         FAIL,
-        NOOP
+        NOOP,
+        LOG
     }
 
     @Getter
@@ -116,6 +117,12 @@ public class LogMessage {
                 this.kv(pair.getKey().toString(), value.toString());
             }
         }
+        return this;
+    }
+
+    public <T> LogMessage with(String key, Collection<T> collection) {
+        Objects.requireNonNull(collection);
+        this.kv(key, collection.stream().map(Object::toString).collect(Collectors.joining(",")));
         return this;
     }
 

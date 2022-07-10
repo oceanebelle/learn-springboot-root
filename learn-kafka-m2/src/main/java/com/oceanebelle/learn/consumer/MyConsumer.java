@@ -9,6 +9,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import static com.oceanebelle.learn.kafka.LogMessageFactory.startAction;
 
 @Component
@@ -17,28 +20,24 @@ public class MyConsumer {
 
     private static final String ACTION="RECEIVE_KAFKA";
     private static final String RECEIVE_MESSAGE="receive";
-    private static final String TOPIC="topic";
-    private static final String PARTITION="partition";
-    private static final String OFFSET="offset";
 
+    private final ConcurrentHashMap<Integer, Long> offsets = new ConcurrentHashMap<>(8);
+
+
+    //@KafkaListener(groupId = "${spring.kakfa.consumer.groupId}", topics="${app.topic}")
     @KafkaListener(groupId = "${spring.kakfa.consumer.groupId}", topics="${app.topic}")
     public void receive(ConsumerRecord<String, String> data) {
-        var recordVisitor = new RecordVisitor(data);
-        log.info(startAction(ACTION, RECEIVE_MESSAGE).with(recordVisitor));
-    }
-
-    @AllArgsConstructor
-    static class RecordVisitor implements LogMessageVisitor {
-
-        private ConsumerRecord<String, String> record;
-
-        @Override
-        public void visit(LogMessage logMessage) {
-            logMessage.kv(TOPIC, record.topic());
-            logMessage.kv(PARTITION, record.partition());
-            logMessage.kv(OFFSET, record.offset());
-            logMessage.kv("size", record.serializedValueSize());
-            logMessage.kv("ts", record.timestamp());
+        offsets.computeIfPresent(data.partition(), (k, v) -> {
+            if ((data.offset() - v) == 1) {
+                return data.offset();
+            } else throw new IllegalStateException("skipping messages"); });
+        offsets.computeIfAbsent(data.partition(), (k) -> data.offset());
+        log.info(startAction(ACTION, RECEIVE_MESSAGE).with(LogVisitors.visit(data)));
+        try {
+            Thread.sleep(10000);
+            throw new RuntimeException("A Random ERROR");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
